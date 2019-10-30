@@ -31,8 +31,10 @@ public class GameController : MonoBehaviour {
             xCamPos = camLimitRight.position.x;
         }
 
-        if (cam.transform.position.y < camLimitBottom.position.y && playerTransform.position.y < camLimitLeft.position.y) {
+        if (cam.transform.position.y < camLimitBottom.position.y && playerTransform.position.y < camLimitBottom.position.y) {
             yCamPos = camLimitBottom.position.y;
+        } else if (cam.transform.position.y > camLimitTop.position.y && playerTransform.position.y > camLimitTop.position.y) {
+            yCamPos = camLimitTop.position.y;
         }
 
         Vector3 posCam = new Vector3(xCamPos, yCamPos, cam.transform.position.z);
