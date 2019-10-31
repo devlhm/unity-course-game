@@ -10,9 +10,18 @@ public class GameController : MonoBehaviour {
 
     public Transform camLimitLeft, camLimitRight, camLimitTop, camLimitBottom;
     public float camSpeed = 0.5f;
-    
-	// Use this for initialization
-	void Start () {
+
+
+    [Header("Audio")]
+    public AudioSource sfxSource;
+    public AudioSource musicSource;
+
+    public AudioClip jumpClip;
+    public AudioClip attackClip;
+    public AudioClip[] footstepClips = new AudioClip[2];
+
+    // Use this for initialization
+    void Start () {
         cam = Camera.main;
 	}
 	
@@ -39,5 +48,9 @@ public class GameController : MonoBehaviour {
 
         Vector3 posCam = new Vector3(xCamPos, yCamPos, cam.transform.position.z);
         cam.transform.position = Vector3.Lerp(cam.transform.position, posCam, camSpeed * Time.deltaTime);
+    }
+
+    public void PlaySfx(AudioClip sfxClip, float volume) {
+        sfxSource.PlayOneShot(sfxClip, volume);
     }
 }

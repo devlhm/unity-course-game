@@ -46,14 +46,17 @@ public class PlayerMovement : MonoBehaviour {
 		else if (!isLookLeft && h < 0)
             Flip ();
 
-		if (Input.GetButtonDown ("Jump") && isGrounded) 
-			rb.AddForce (new Vector2 (0, jumpForce));
+		if (Input.GetButtonDown ("Jump") && isGrounded) {
+            gameController.PlaySfx(gameController.jumpClip, 0.5f);
+            rb.AddForce(new Vector2(0, jumpForce));
+        }			
 
         animator.SetBool("isGrounded", isGrounded);
         animator.SetFloat("speedY", speedY);
             
         if(Input.GetButtonDown("Fire1") && !isAttack) {
             isAttack = true;
+            gameController.PlaySfx(gameController.attackClip, 1f);
             animator.SetTrigger("attack");
         }
 
@@ -76,5 +79,9 @@ public class PlayerMovement : MonoBehaviour {
     void HitBoxAttack() {
         GameObject hitBoxTemp = Instantiate(AttackHitBox, HandTransform);
         Destroy(hitBoxTemp, 0.2f);
+    }
+
+    void Footstep() {
+        gameController.PlaySfx(gameController.footstepClips[Random.Range(0, gameController.footstepClips.Length)], 1f);
     }
 }
